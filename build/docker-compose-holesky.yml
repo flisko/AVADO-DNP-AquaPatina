@@ -1,0 +1,21 @@
+version: '3.4'
+services:
+  aquapatina-node-holesky.avado.dappnode.eth:
+    build:
+      context: build
+      args:
+        UPSTREAM_VERSION: v1.2.3
+    image: 'aquapatina-node-holesky.avado.dappnode.eth:0.0.11'
+    restart: always
+    volumes:
+      - 'ssv:/data'
+    ports:
+      - '13004:13001'
+      - '12004:12001/udp'
+      - '15004'
+    environment:
+      - 'BEACONNODEADDR=http://teku-holesky.my.ava.do:5051'
+      - 'EXECUTIONCLIENTADDR=ws://holesky-geth.my.ava.do:8546'
+      - NETWORK=holesky
+volumes:
+  ssv: {}
