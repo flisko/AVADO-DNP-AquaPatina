@@ -1,0 +1,33 @@
+{
+  "name": "aquapatina-node.avado.dappnode.eth",
+  "version": "0.0.1",
+  "upstream": "v1.2.3",
+  "autoupdate": true,
+  "title": "Aqua Patina operator package",
+  "description": "Distributed validator for Aqua Patina",
+  "avatar": "/ipfs/QmVJGLxLpiQSD4ZTfxQf1X7i4EdiWzTE3YML8ZiPjdzp5Z",
+  "type": "service",
+  "image": {
+    "environment": [
+      "NETWORK=mainnet",
+      "BEACONNODEADDR=http://teku.my.ava.do:5051",
+      "EXECUTIONCLIENTADDR=ws://avado-dnp-nethermind.my.ava.do:8545",
+      "EXTRA_OPTS="
+    ],
+    "volumes": [
+      "ssv:/data"
+    ],
+    "restart": "always",
+    "ports": [
+      "13003:13001",
+      "12003:12001/udp",
+      "15003:15001"
+    ]
+  },
+  "author": "AVADO",
+  "license": "GLP-3.0",
+  "links": {
+    "Github": "https://github.com/AvadoDServer/AVADO-DNP-AQUAPATINA",
+    "OnboardingWizard": "http://aquapatina-node.my.ava.do"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "aquapatina-node-holesky.avado.dappnode.eth",
+  "version": "0.0.11",
+  "upstream": "v1.2.3",
+  "autoupdate": true,
+  "title": "Aqua Patina operator package (Holesky testnet)",
+  "description": "Distributed validator for Aqua Patina (Holesky testnet)",
+  "avatar": "/ipfs/QmSZNa3rm79PUQqu1yu8ckj7Pb1AxbSNHaUaEPV8KpMHdg",
+  "type": "service",
+  "image": {
+    "environment": [
+      "NETWORK=holesky",
+      "BEACONNODEADDR=http://teku-holesky.my.ava.do:5051",
+      "EXECUTIONCLIENTADDR=ws://holesky-geth.my.ava.do:8546",
+      "EXTRA_OPTS="
+    ],
+    "volumes": [
+      "ssv:/data"
+    ],
+    "restart": "always",
+    "ports": [
+      "13004:13001",
+      "12004:12001/udp",
+      "15004:15001"
+    ]
+  },
+  "author": "AVADO",
+  "license": "GLP-3.0",
+  "links": {
+    "Github": "https://github.com/AvadoDServer/AVADO-DNP-SSV",
+    "OnboardingWizard": "http://ssv-holesky.my.ava.do"
+  }
+}
