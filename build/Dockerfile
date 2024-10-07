@@ -1,6 +1,6 @@
 ARG UPSTREAM_VERSION
 
-FROM node:18.15.0 as builder
+FROM node:18.20.0 as builder
 
 RUN mkdir ~/.ssh
 RUN ssh-keyscan github.com >> ~/.ssh/known_hosts
