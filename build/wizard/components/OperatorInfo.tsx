@@ -1,10 +1,7 @@
 // import CopyToClipboard from 'react-copy-to-clipboard';
 import { useOperatorByPubKey, useOperatorById } from '../hooks/read/useSSVAPI';
-import { SsvButtons } from './SsvButtons';
-import { DocumentDuplicateIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
-// 'use client';
 
 interface ShortenTextProps extends React.HTMLAttributes<HTMLSpanElement> {
     text: string;
@@ -20,37 +17,8 @@ const ShortenText: React.FC<ShortenTextProps> = ({ text, ...rest }) => {
     return <span {...rest}>{firstPart}...{lastPart}</span>;
 };
 
-interface CopyToClipboardProps {
-    text: string;
-    children: React.ReactNode;
-}
-
-const CopyToClipboard: React.FC<CopyToClipboardProps> = ({ text, children }) => {
-    const [isCopied, setIsCopied] = useState<boolean>(false);
-
-    const copyToClipboard = async (): Promise<void> => {
-        try {
-            await navigator.clipboard.writeText(text);
-            setIsCopied(true);
-            setTimeout(() => {
-                setIsCopied(false);
-            }, 1000);
-        } catch (err) {
-            console.error("Failed to copy: ", err);
-        }
-    };
-
-    return (
-        <button onClick={copyToClipboard}>
-            {isCopied ? "Copied!" : children}
-        </button>
-    );
-};
-
 function TextDialog({ text }: { text: string }) {
     const [open, setOpen] = useState(false)
-
-
 
     return (
         <>
@@ -100,9 +68,24 @@ function TextDialog({ text }: { text: string }) {
 
 
 export const OperatorInfo = ({ operatorPubKey, network }: { operatorPubKey: string, network: string }) => {
-    const { data: operatorData } = useOperatorByPubKey(operatorPubKey, network);
-    const { data: operatorDetails } = useOperatorById(operatorData?.data?.id, network);
-    const [copiedText, setCopiedText] = useState<string>("++");
+    const { data: operatorData, isLoading: isLoadingOperatorId } = useOperatorByPubKey(operatorPubKey, network);
+    const { data: operatorDetails, isLoading: isLoadingOperatorDetails } = useOperatorById(operatorData?.data?.id, network);
+
+    if (isLoadingOperatorDetails || isLoadingOperatorId) {
+        return (
+            <div className="bg-white sm:rounded-lg">
+                <div className="px-4 py-5 sm:p-6">
+                    <h3 className="flex text-base font-semibold leading-6 text-gray-900">
+                        <span>SSV Operator health check</span>
+                        <span className="ml-auto inline-flex flex-shrink-0 items-center rounded-full bg-grey-50 px-1.5 py-0.5 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/20">
+                            Loading...
+                        </span>
+                    </h3>
+                </div>
+            </div>
+        );
+    }
+
 
     if (!operatorData || !operatorDetails) {
         return (
@@ -121,12 +104,6 @@ export const OperatorInfo = ({ operatorPubKey, network }: { operatorPubKey: stri
                         </p>
 
                         <p>Your operator pubKey is:
-                            {/* <div className="">
-                                <ShortenText text={operatorPubKey} />
-                                <CopyToClipboard text={operatorPubKey}>
-                                    <><DocumentDuplicateIcon className="h-3 w-3" /> </>
-                                </CopyToClipboard>
-                            </div> */}
                             <TextDialog text={operatorPubKey} />
                         </p>
                     </div>
@@ -142,31 +119,6 @@ export const OperatorInfo = ({ operatorPubKey, network }: { operatorPubKey: stri
                     </div>
                 </div>
             </div>
-
-            // <>
-            //     <div className="px-4 sm:px-0">
-            //         <div className="m-1">
-            //             <h3 className="text-base flex font-semibold leading-7 text-gray-900">
-            //                 <span>SSV operator health-check</span>
-            //                 <span className="ml-auto inline-flex flex-shrink-0 items-center rounded-full bg-red-50 px-1.5 py-0.5 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/20">
-            //                     Not OK
-            //                 </span>
-            //             </h3>
-            //         </div>
-            //     </div>
-            //     <div className="m-1">
-            //     </div>
-
-
-            //     <div>Please go to the <a href="https://app.ssv.network/my-account/operators-dashboard">SSV account page</a> to register your operator</div>
-            //     <p>Your operator pubKey is
-            //         <ShortenText text={operatorPubKey} />
-            //         <CopyToClipboard text={operatorPubKey}>
-            //             <><DocumentDuplicateIcon className="h-6 w-6" /> </>
-            //         </CopyToClipboard>
-            //     </p>
-            // </>
-
         )
     }
 
