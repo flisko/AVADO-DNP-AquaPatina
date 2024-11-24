@@ -1,11 +1,11 @@
 {
-  "name": "aquapatina-node.avado.dappnode.eth",
-  "version": "0.0.7",
+  "name": "ssv.avado.dappnode.eth",
+  "version": "0.0.6",
   "upstream": "v2.0.0",
   "autoupdate": true,
-  "title": "Aqua Patina operator package",
-  "description": "Distributed validator for Aqua Patina",
-  "avatar": "/ipfs/QmVJGLxLpiQSD4ZTfxQf1X7i4EdiWzTE3YML8ZiPjdzp5Z",
+  "title": "SSV operator package",
+  "description": "Distributed validator for SSV",
+  "avatar": "/ipfs/Qma6Dq8QjhgRbqjHxumG9kLM6YinF4JRvZ9TUD8a3M1Fje",
   "type": "service",
   "image": {
     "environment": [
@@ -19,15 +19,13 @@
     ],
     "restart": "always",
     "ports": [
-      "13003:13001",
-      "12003:12001/udp",
-      "15003:15001"
+      "13001:13001",
+      "12001:12001/udp"
     ]
   },
   "author": "AVADO",
   "license": "GLP-3.0",
   "links": {
-    "Github": "https://github.com/AvadoDServer/AVADO-DNP-AQUAPATINA",
-    "OnboardingWizard": "http://aquapatina-node.my.ava.do"
+    "OnboardingWizard": "http://ssv.my.ava.do"
   }
 }
