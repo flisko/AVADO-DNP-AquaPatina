@@ -3,7 +3,7 @@
 NETWORK=$1
 
 case ${NETWORK} in
-"mainnet" | "holesky") ;;
+"mainnet" | "holesky" | "ssv") ;;
 *)
   echo "Invalid network"
   exit

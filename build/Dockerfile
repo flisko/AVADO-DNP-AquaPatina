@@ -1,6 +1,6 @@
 ARG UPSTREAM_VERSION
 
-FROM node:18.20.0 as builder
+FROM node:18.20.0 AS builder
 
 RUN mkdir ~/.ssh
 RUN ssh-keyscan github.com >> ~/.ssh/known_hosts
@@ -21,10 +21,20 @@ RUN yarn --production
 
 
 
-FROM --platform=linux/amd64 bloxstaking/ssv-node:${UPSTREAM_VERSION}
+FROM --platform=linux/amd64 ssvlabs/ssv-node:${UPSTREAM_VERSION}
 
-RUN apk add --no-cache yq --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
-RUN apk add --no-cache supervisor nginx nodejs curl
+RUN apt-get update && apt-get install -y \
+    supervisor \
+    nginx \
+    nodejs \
+    curl \
+ && rm -rf /var/lib/apt/lists/*
+
+RUN adduser nginx
+
+# download yq
+RUN wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq
+RUN chmod +x /usr/local/bin/yq
 
 # copy wizard & monitor
 COPY --from=builder /usr/src/app/wizard/out /usr/local/wizard

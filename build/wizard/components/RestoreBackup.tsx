@@ -104,7 +104,7 @@ export const RestoreBackup = ({ network }: { network: string }) => {
     return (
         <>
             <div>
-                <p className="text-sm pb-4">(backup file is called <b>aqua-patina-ssv-{network}-backup.json</b>)</p>
+                <p className="text-sm pb-4">(backup file is called <b>ssv-{network}-backup.json</b>)</p>
                 <div className="content">
                     <div className="field is-horizontal">
                         <label className="field-label has-text-black">Config backup file (required):</label>

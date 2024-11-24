@@ -22,7 +22,7 @@ export module BackupRestore {
 
             // Set the headers to prompt a download in the browser
             res.setHeader('Content-Type', 'application/json');
-            res.setHeader('Content-Disposition', `attachment; filename="aqua-patina-ssv-${network}-backup.json"`);
+            res.setHeader('Content-Disposition', `attachment; filename="ssv-${network}-backup.json"`);
             res.setHeader('Content-Length', Buffer.byteLength(jsonString));
 
             // Send the JSON string as a response

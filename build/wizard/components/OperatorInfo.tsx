@@ -8,6 +8,7 @@ interface ShortenTextProps extends React.HTMLAttributes<HTMLSpanElement> {
 }
 
 const ShortenText: React.FC<ShortenTextProps> = ({ text, ...rest }) => {
+    if (!text) return null;
     const length = 6;
     if (text.length <= 2 * length) {
         return <span {...rest}>{text}</span>;
