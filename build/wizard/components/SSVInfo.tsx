@@ -41,10 +41,9 @@ export const SSVInfo = ({ operatorPubKey, network }: { operatorPubKey: string, n
     );
   }
 
-  const bcURL = `https://beaconcha.in/dashboard?validators=${validators?.validators?.map((v: any) => v.validator_info.index).join(",")}#balances`;
+  const bcURL = `https://beaconcha.in/dashboard?validators=${validators?.validators?.map((v: any) => v.id).join(",")}#validators-table`;
 
   return (
-
     <div className="bg-white sm:rounded-lg">
       <div className="px-4 py-5 sm:p-6">
         <h3 className="flex text-base font-semibold leading-6 text-gray-900">
@@ -55,12 +54,10 @@ export const SSVInfo = ({ operatorPubKey, network }: { operatorPubKey: string, n
           <br />
           {validators?.validators?.map((validator: any, i: number) => {
             return (
-              <a key={i} href="" target="_blank">
-                <span className="ml-auto inline-flex flex-shrink-0 items-center rounded-full bg-green-50 
+                <span key={`validator-${i}`} className="ml-auto inline-flex flex-shrink-0 items-center rounded-full bg-green-50 
                 px-1.5 py-0.5 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20 mr-2">
-                  {validator.validator_info.index}
+                  id {validator.id}
                 </span>
-              </a>
             )
           })}
         </div>

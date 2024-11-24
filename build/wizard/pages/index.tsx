@@ -1,12 +1,10 @@
 import type { NextPage } from 'next';
-import { useState, useEffect } from 'react';
-import Head from 'next/head';
-import styles from '../styles/Home.module.css';
 import { OperatorInfo } from '../components/OperatorInfo';
 import { useNetwork, useOperatorPublicKey } from '../hooks/read/useMonitor';
 import { DownloadBackup } from '../components/DownloadBackup';
 import { SSVInfo } from '../components/SSVInfo';
 import { HealthCheck } from '../components/HealthCheck';
+import { server_config } from "../config"
 
 const Home: NextPage = () => {
 
@@ -47,7 +45,7 @@ const Home: NextPage = () => {
       <div className="py-10">
         <header>
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">Aqua Patina Operator Dashboard</h1>
+            <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">{server_config.title} Operator Dashboard</h1>
           </div>
         </header>
         <main>

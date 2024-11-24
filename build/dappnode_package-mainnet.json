@@ -1,7 +1,7 @@
 {
   "name": "aquapatina-node.avado.dappnode.eth",
-  "version": "0.0.5",
-  "upstream": "v1.2.3",
+  "version": "0.0.7",
+  "upstream": "v2.0.0",
   "autoupdate": true,
   "title": "Aqua Patina operator package",
   "description": "Distributed validator for Aqua Patina",

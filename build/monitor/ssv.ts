@@ -7,9 +7,9 @@ export module SSV {
 
   export const getConfig = async (): Promise<any> => {
     try {
-      console.log("getConfig: reading config file",server_config.config_file_path);
+      console.log("getConfig: reading config file", server_config.config_file_path);
       const config = await YAML.load(fs.readFileSync(server_config.config_file_path, 'utf8'))
-      console.log("config read:", config)
+      // console.log("config read:", config)
       return typeof config === 'object' && config !== null ? config : {};
     } catch (e) {
       console.log("Error reading SSV config", e)
@@ -19,9 +19,16 @@ export module SSV {
 
   export const getKeyFile = async (): Promise<any> => {
     try {
+      console.log(`reading ${server_config.private_key_file}`)
       const config = JSON.parse(await fs.readFileSync(server_config.private_key_file, 'utf8'))
+      console.log(`config read`,config);
       return config ? config : {}
     } catch (e) {
+      if (e instanceof Error) {
+        console.log(`error reading config file: ${e.message}`);
+      } else {
+        console.log(`unknown error: ${e}`);
+      }
       return {};
     }
   }
@@ -47,7 +54,7 @@ export module SSV {
 
     server.get("/operatorPublicKey", async (req: Request, res: Response, next: Next) => {
       const config = await getKeyFile();
-      const key = config.publicKey;
+      const key = config.pubKey || config.publicKey;
       res.send(200, { "data": key });
       next()
     });
