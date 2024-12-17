@@ -1,16 +1,17 @@
 services:
-  ssv.avado.dappnode.eth:
+  aquapatina-node.avado.dappnode.eth:
     build:
       context: build
       args:
-        UPSTREAM_VERSION: v2.0.0
-    image: 'ssv.avado.dappnode.eth:0.0.6'
+        UPSTREAM_VERSION: v2.0.2
+    image: 'aquapatina-node.avado.dappnode.eth:0.0.8'
     restart: always
     volumes:
       - 'ssv:/data'
     ports:
-      - '13001:13001'
-      - '12001:12001/udp'
+      - '13003:13001'
+      - '12003:12001/udp'
+      - '15003'
     environment:
       - 'BEACONNODEADDR=http://teku.my.ava.do:5051'
       - 'EXECUTIONCLIENTADDR=ws://avado-dnp-nethermind.my.ava.do:8545'
