@@ -1,6 +1,6 @@
 {
   "name": "aquapatina-node.avado.dappnode.eth",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "upstream": "v2.1.0",
   "autoupdate": true,
   "title": "Aqua Patina operator package",
