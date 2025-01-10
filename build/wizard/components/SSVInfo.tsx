@@ -69,7 +69,7 @@ export const SSVInfo = ({
                 className="ml-auto inline-flex flex-shrink-0 items-center rounded-full bg-green-50 
                 px-1.5 py-0.5 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20 mr-2"
               >
-                pub_key {`0x${validator.public_key.slice(0, 5)}...`}
+                {`0x${validator.public_key.slice(0, 5)}...`}
               </span>
             );
           })}
