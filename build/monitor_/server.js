@@ -194,6 +194,20 @@ server.get("/beaconNodeStatus", (req, res, next) => {
     }
 });
 
+/*server.get("/validator/index/:pubkey", (req, res, next) => {
+    const pubkey = req.params.pubkey;
+    const config = getConfig();
+    console.dir(config)
+    const beaconNodeAddr = config.eth2.BeaconNodeAddr;
+    if (beaconNodeAddr) {
+        const url = `${beaconNodeAddr}/eth/v1/beacon/states/head/validators?id=${pubkey}`
+        get(url, res, next)
+    } else {
+        console.log("Invalid config");
+        res.send(200, "Invalid config)")
+        next()
+    }
+});*/
 
 const get = (url, res, next) => {
     axios.get(url,

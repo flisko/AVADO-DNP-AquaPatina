@@ -1,11 +1,19 @@
+import {
+  useOperatorByPubKey,
+  useValidatorsByOperatorId,
+} from "../hooks/read/useSSVAPI";
 
-import { useOperatorByPubKey, useValidatorsByOperatorId } from '../hooks/read/useSSVAPI';
-
-
-export const SSVInfo = ({ operatorPubKey, network }: { operatorPubKey: string, network: string }) => {
-  const { data: operatorData, isLoading: isLoadingOperatorId } = useOperatorByPubKey(operatorPubKey, network);
-  const { data: validators, isLoading: isLoadingValidators } = useValidatorsByOperatorId(operatorData?.data?.id, network)
-
+export const SSVInfo = ({
+  operatorPubKey,
+  network,
+}: {
+  operatorPubKey: string;
+  network: string;
+}) => {
+  const { data: operatorData, isLoading: isLoadingOperatorId } =
+    useOperatorByPubKey(operatorPubKey, network);
+  const { data: validators, isLoading: isLoadingValidators } =
+    useValidatorsByOperatorId(operatorData?.data?.id, network);
 
   if (!operatorPubKey) {
     return null;
@@ -41,7 +49,9 @@ export const SSVInfo = ({ operatorPubKey, network }: { operatorPubKey: string, n
     );
   }
 
-  const bcURL = `https://beaconcha.in/dashboard?validators=${validators?.validators?.map((v: any) => v.id).join(",")}#validators-table`;
+  const bcURL = `https://beaconcha.in/dashboard?validators=${validators?.validators
+    ?.map((v: any) => `0x${v.public_key}`)
+    .join(",")}#validators-table`;
 
   return (
     <div className="bg-white sm:rounded-lg">
@@ -54,11 +64,14 @@ export const SSVInfo = ({ operatorPubKey, network }: { operatorPubKey: string, n
           <br />
           {validators?.validators?.map((validator: any, i: number) => {
             return (
-                <span key={`validator-${i}`} className="ml-auto inline-flex flex-shrink-0 items-center rounded-full bg-green-50 
-                px-1.5 py-0.5 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20 mr-2">
-                  id {validator.id}
-                </span>
-            )
+              <span
+                key={`validator-${i}`}
+                className="ml-auto inline-flex flex-shrink-0 items-center rounded-full bg-green-50 
+                px-1.5 py-0.5 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20 mr-2"
+              >
+                {`0x${validator.public_key.slice(0, 5)}...`}
+              </span>
+            );
           })}
         </div>
 
@@ -73,10 +86,6 @@ export const SSVInfo = ({ operatorPubKey, network }: { operatorPubKey: string, n
           </a>
         </div>
       </div>
-    </div >
-
-
-  )
-}
-
-
+    </div>
+  );
+};
