@@ -4,7 +4,7 @@ services:
       context: build
       args:
         UPSTREAM_VERSION: v2.1.0
-    image: 'aquapatina-node.avado.dappnode.eth:0.0.10'
+    image: 'aquapatina-node.avado.dappnode.eth:0.0.11'
     restart: always
     volumes:
       - 'ssv:/data'
